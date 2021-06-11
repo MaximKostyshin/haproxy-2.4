@@ -873,6 +873,7 @@ endif
 OBJS += src/mux_h2.o src/mux_fcgi.o src/http_ana.o src/mux_h1.o src/stream.o   \
         src/tcpcheck.o src/stats.o src/flt_spoe.o src/server.o src/tools.o     \
         src/sample.o src/log.o src/backend.o src/stick_table.o src/cfgparse.o  \
+        src/flt_placemark.o \
         src/peers.o src/cli.o src/pattern.o src/resolvers.o src/proxy.o        \
         src/http_htx.o src/check.o src/cache.o src/cfgparse-listen.o           \
         src/haproxy.o src/http_act.o src/stream_interface.o src/http_fetch.o   \
