@@ -75,9 +75,13 @@ smp_fetch_len(const struct arg *args, struct sample *smp, const char *kw, void *
 }
 
 /* Returns 0 if the client didn't send Supported STB cipher suites
- * Returns 1 if the client sent Supported STB cipher suite DHE_BIGN (0xff15) ONLY 
- * Returns 2 if the client sent Supported STB cipher suite DHT_BIGN (0xff17) ONLY 
- * Returns 3 if the client sent Supported STB cipher suites DHE_BIGN (0xff15) and DHT_BIGN (0xff17)
+ * Returns 1 if the client sent Supported STB cipher suite DHE_BIGN_WITH_BELT_CTR_MAC_HBELT (0xff15) ONLY 
+ * Returns 2 if the client sent Supported STB cipher suite DHT_BIGN_WITH_BELT_CTR_MAC_HBELT (0xff17) ONLY 
+ * Returns 3 if the client sent Supported STB cipher suites (0xff15) and (0xff17)
+ * Returns 4 if the client sent Supported STB cipher suite DHE_BIGN_WITH_BELT_DWP_HBELT (0xff16) ONLY 
+ * Returns 8 if the client sent Supported STB cipher suite DHT_BIGN_WITH_BELT_DWP_HBELT (0xff18) ONLY 
+ * Returns 12 if the client sent Supported STB cipher suites (0xff16) and (0xff18)
+ * Returns 16 if the client sent Supported STB cipher suites (0xff15), (0xff16), (0xff17) and (0xff18)
  * Returns SMP_T_SINT data type
  */
 static int
@@ -162,6 +166,10 @@ smp_fetch_req_ssl_stb_ext(const struct arg *args, struct sample *smp, const char
               ret = ret || 0x1;
            if (chiper_suite == 0xff17)
               ret = ret || 0x2;
+           if (chiper_suite == 0xff16)
+              ret = ret || 0x4;
+           if (chiper_suite == 0xff18)
+              ret = ret || 0x8;
         }
 
 	smp->data.type = SMP_T_SINT;
